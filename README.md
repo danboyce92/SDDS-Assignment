@@ -16,8 +16,17 @@ The idea for this project. Similar to the last project in that it is a CLI progr
 
 Where to begin?
 
--Copy the User interface from my last project.
--Remove parts that aren't appropriate.
+-Copy the User interface from my last project. ✔
+-Remove parts that aren't appropriate. ✔
+
+What does this app actually need to do???
+It needs to point to a txt file.
+It needs to go through every word in text file and replace them with the closest word in the Google 1000 list
+
+Next steps
+Isolate problems
+Create a class that processes an embeddings file
+
 
 ## QUESTIONS?
-Should the input be raw user input or a path to a txt file?
+Should the input be raw user input or a path to a txt file? YES

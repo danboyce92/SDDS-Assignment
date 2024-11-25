@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.util.Comparator;
+import java.io.IOException; 
 import java.util.Scanner;
 
 public class Runner {
@@ -18,7 +17,7 @@ public class Runner {
 
         public void startInterface() throws IOException {
         //Initialization of program's other classes
-        // EmbeddingExtractor ee = new EmbeddingExtractor();
+        EmbeddingExtractor ee = new EmbeddingExtractor();
         // Comparator c = new Comparator(searchSize);
         // EmbeddingConverter ec = new EmbeddingConverter(searchSize);
         // OutputManager om = new OutputManager();
