@@ -1,4 +1,5 @@
-import java.io.IOException; 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Runner {
@@ -14,8 +15,14 @@ public class Runner {
         // runner.startInterface();
 
         GoogleWordProcessor gwp = new GoogleWordProcessor();
-        gwp.processWords("./google-1000.txt");
-        System.out.println(gwp.wordSet.contains("yes"));
+        // gwp.processWords("./google-1000.txt");
+        // System.out.println(gwp.wordSet.contains("yes"));
+        System.out.println(Arrays.toString(gwp.processWords("./google-1000.txt", "./word-embeddings.txt")));
+
+
+
+
+
 
     }
 
