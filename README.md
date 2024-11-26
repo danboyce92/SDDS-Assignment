@@ -95,7 +95,7 @@ For now just print result array to output destination and worry about formatting
 
 Create the similarity check in isolation.
 
-
+**SPANNER IN THE WORKS... NOT ALL GOOGLE_WORDS EXIST IN THE TOTALLIST**
 
 
 

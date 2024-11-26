@@ -18,27 +18,27 @@ public class GoogleWordProcessor {
     public double[][] googleEmbeddingsArray = new double[1000][];
 
     public String pathToEmbeddingsFile = "./word-embeddings.txt";
-    public String[] totalWordArray = new String[59602];
-    public List<String> totalWordList = new ArrayList<>();
+    public List<String> totalWordArray = new ArrayList<>();
+
     public double[][] totalEmbeddingArray = new double[59602][];
 
 
-    public double[]  processWords(String googleFilePath, String totalEmbedPath) throws IOException {
+    public List<String>  processWords(String googleFilePath, String totalEmbedPath) throws IOException {
         createWordArray(googleFilePath);
         extractEmbeddings(totalEmbedPath);
 
-        totalWordList = Arrays.asList(totalWordArray);
+
 
         // createMap();
 
-        return totalEmbeddingArray[0];
+        return totalWordArray;
     }
 
     private void createWordArray(String googleFilePath) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(googleFilePath));
         String line;
         while ((line = br.readLine()) != null) {
-            googleWordsArray.add(line);
+            googleWordsArray.add(line.trim());
         }
         br.close();
     }
@@ -64,47 +64,42 @@ public class GoogleWordProcessor {
 
     private void createMap() throws IOException {
         for (String word : googleWordsArray) {
-            //Find the word's index in the totalWordArray
-            //Use that index to identify it's embedding in totalEmbeddingArray
-            //Create a Map entry with word as Key and embedding as value
-
-            int index = totalWordList.indexOf(word);
-            //Need to account for if word returns -1!!!!!!!!
+            int index = totalWordArray.indexOf(word);
+            if (index == -1) {
+                System.err.println("Error: Word not found in totalWordList: " + word);
+                continue; // Skip this word or handle it accordingly
+            }
             double[] relevantEmbedding = totalEmbeddingArray[index];
             wordMap.put(word, relevantEmbedding);
         }
-    }  
+    }
     
     public void extractEmbeddings(String providedPath) throws IOException {
-        int maxLines = 59602;
-        String[] wordsArray = new String[maxLines];
-        double[][] embeddingsArray = new double[maxLines][];
-        int count = 0;
-        //BufferedReader is used to interpret the lines of text in the provided .txt file
+        ArrayList<String> wordsList = new ArrayList<>();
+        ArrayList<double[]> embeddingsList = new ArrayList<>();
+    
+        // BufferedReader is used to interpret the lines of text in the provided .txt file
         BufferedReader br = new BufferedReader(new FileReader(providedPath));
         String line;
         while ((line = br.readLine()) != null) {
-            String[] parts = line.split(",");
+            // Split the line using spaces as the delimiter
+            String[] parts = line.split("\\s+");
             if (parts.length > 1) {
-                wordsArray[count] = parts[0].trim();
+                wordsList.add(parts[0].trim()); // The first word
                 double[] embeddings = new double[parts.length - 1];
                 for (int i = 1; i < parts.length; i++) {
-                    embeddings[i - 1] = Double.parseDouble(parts[i].trim());
+                    embeddings[i - 1] = Double.parseDouble(parts[i].trim()); // Parse the embeddings
                 }
-                embeddingsArray[count] = embeddings;
-                count++;
+                embeddingsList.add(embeddings);
             }
         }
         br.close();
-        
-        // Resize the arrays to the actual number of lines read
-        String[] finalWordsArray = new String[count];
-        double[][] finalEmbeddingsArray = new double[count][50];
-        
-        System.arraycopy(wordsArray, 0, finalWordsArray, 0, count);
-        System.arraycopy(embeddingsArray, 0, finalEmbeddingsArray, 0, count);
-
-        totalWordArray = finalWordsArray;
+    
+        // Convert ArrayLists to arrays if needed
+        String[] finalWordsArray = wordsList.toArray(new String[0]);
+        double[][] finalEmbeddingsArray = embeddingsList.toArray(new double[0][]);
+    
+        totalWordArray = wordsList;
         totalEmbeddingArray = finalEmbeddingsArray;
     }
 

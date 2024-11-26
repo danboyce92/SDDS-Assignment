@@ -17,7 +17,7 @@ public class Runner {
         GoogleWordProcessor gwp = new GoogleWordProcessor();
         // gwp.processWords("./google-1000.txt");
         // System.out.println(gwp.wordSet.contains("yes"));
-        System.out.println(Arrays.toString(gwp.processWords("./google-1000.txt", "./word-embeddings.txt")));
+        System.out.println(gwp.processWords("./google-1000.txt", "./total-list.txt"));
 
 
 
