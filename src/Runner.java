@@ -11,13 +11,18 @@ public class Runner {
 
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
-        runner.startInterface();
+        // runner.startInterface();
+
+        GoogleWordProcessor gwp = new GoogleWordProcessor();
+        gwp.processWords("./google-1000.txt");
+        System.out.println(gwp.wordSet.contains("yes"));
 
     }
 
         public void startInterface() throws IOException {
         //Initialization of program's other classes
         EmbeddingExtractor ee = new EmbeddingExtractor();
+        GoogleWordProcessor gwp = new GoogleWordProcessor();
         // Comparator c = new Comparator(searchSize);
         // EmbeddingConverter ec = new EmbeddingConverter(searchSize);
         // OutputManager om = new OutputManager();
