@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,22 +16,24 @@ public class GoogleWordProcessor {
     public Set<String> wordSet = new HashSet<>();
     public Map<String, double[]> wordMap = new HashMap<>();
 
+    public ArrayList<String> missingWords = new ArrayList<>();
+    public double[][] missingWordEmbeddings = new double[498][];
+
     public List<String> googleWordsArray = new ArrayList<>();
     public double[][] googleEmbeddingsArray = new double[1000][];
 
+
     public String pathToEmbeddingsFile = "./word-embeddings.txt";
     public List<String> totalWordArray = new ArrayList<>();
+    public double[][] totalEmbeddingArray = new double[400000][];
 
-    public double[][] totalEmbeddingArray = new double[59602][];
-
+    private List<String> wordList;
+    private List<double[]> embeddingList;
 
     public List<String>  processWords(String googleFilePath, String totalEmbedPath) throws IOException {
         createWordArray(googleFilePath);
+        createMissingWordArray("./missingWords.txt");
         extractEmbeddings(totalEmbedPath);
-
-
-
-        // createMap();
 
         return totalWordArray;
     }
@@ -42,6 +46,17 @@ public class GoogleWordProcessor {
         }
         br.close();
     }
+
+    private void createMissingWordArray(String missingFilePath) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(missingFilePath));
+        String line;
+        while ((line = br.readLine()) != null) {
+            missingWords.add(line.trim());
+        }
+        br.close();
+    }
+
+
 
     private void createEmbeddingArray() {
         //In order to use this function I need to create a Map of all word embeddings
@@ -63,45 +78,88 @@ public class GoogleWordProcessor {
     // }
 
     private void createMap() throws IOException {
+        // Initialize missingWords as an empty list first
+        missingWords.clear(); // clear any previous values
+    
+        //CreateMap uses the smallerTotal list to identify which words are not present.
+        //I need to change this function 
+
         for (String word : googleWordsArray) {
             int index = totalWordArray.indexOf(word);
             if (index == -1) {
+                // If the word is missing in totalWordArray, add it to missingWords
+                missingWords.add(word);
                 System.err.println("Error: Word not found in totalWordList: " + word);
-                continue; // Skip this word or handle it accordingly
+                continue; // Skip adding to the map if the word is missing
             }
+            // If the word is found, add it to wordMap with its corresponding embedding
             double[] relevantEmbedding = totalEmbeddingArray[index];
             wordMap.put(word, relevantEmbedding);
         }
     }
     
     public void extractEmbeddings(String providedPath) throws IOException {
-        ArrayList<String> wordsList = new ArrayList<>();
-        ArrayList<double[]> embeddingsList = new ArrayList<>();
-    
+        wordList = new ArrayList<>();
+        embeddingList = new ArrayList<>();
+
         // BufferedReader is used to interpret the lines of text in the provided .txt file
         BufferedReader br = new BufferedReader(new FileReader(providedPath));
         String line;
         while ((line = br.readLine()) != null) {
-            // Split the line using spaces as the delimiter
-            String[] parts = line.split("\\s+");
+            String[] parts = line.split(",");
             if (parts.length > 1) {
-                wordsList.add(parts[0].trim()); // The first word
+                wordList.add(parts[0].trim());
                 double[] embeddings = new double[parts.length - 1];
                 for (int i = 1; i < parts.length; i++) {
-                    embeddings[i - 1] = Double.parseDouble(parts[i].trim()); // Parse the embeddings
+                    embeddings[i - 1] = Double.parseDouble(parts[i].trim());
                 }
-                embeddingsList.add(embeddings);
+                embeddingList.add(embeddings);
             }
         }
         br.close();
-    
-        // Convert ArrayLists to arrays if needed
-        String[] finalWordsArray = wordsList.toArray(new String[0]);
-        double[][] finalEmbeddingsArray = embeddingsList.toArray(new double[0][]);
-    
-        totalWordArray = wordsList;
-        totalEmbeddingArray = finalEmbeddingsArray;
     }
+    
+
+
+    // public void findMissingWordEmbeddings(List<String> words) {
+    //     int counter = 0;
+    //     for (String word : words) {
+    //         //Get index of totalWordArray use index to take from totalEmbeddingArray
+    //         int index = totalWordArray.indexOf(word);
+    //         missingWordEmbeddings[counter] = totalEmbeddingArray[index];
+    //         counter++;
+    //     }
+    // }
+
+    // public static void writeSolution(ArrayList<String> list, double[][] array) {
+    //     // Validate inputs
+    //     if (list == null || array == null || list.size() != array.length) {
+    //         throw new IllegalArgumentException("ArrayList and double[][] must be non-null and have matching sizes.");
+    //     }
+        
+    //     try (BufferedWriter writer = new BufferedWriter(new FileWriter("Solution.txt"))) {
+    //         System.out.println("Starting to write to Solution.txt...");
+    //         for (int i = 0; i < list.size(); i++) {
+    //             System.out.println("Writing row " + i);
+    //             // Write the string from the ArrayList
+    //             writer.write(list.get(i));
+
+    //             // Append the elements of the corresponding double[] separated by commas
+    //             double[] innerArray = array[i];
+    //             for (double value : innerArray) {
+    //                 writer.write(", " + value);
+    //             }
+
+    //             // Move to the next line
+    //             writer.newLine();
+    //         }
+    //         writer.flush(); // Explicit flush
+    //         System.out.println("Finished writing to Solution.txt.");
+    //     } catch (IOException e) {
+    //         System.err.println("Error writing to Solution.txt: " + e.getMessage());
+    //     }
+    // }
+
 
 
 

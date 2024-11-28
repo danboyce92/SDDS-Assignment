@@ -1,6 +1,12 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Runner {
     private Scanner s = new Scanner(System.in);
@@ -14,12 +20,17 @@ public class Runner {
         Runner runner = new Runner();
         // runner.startInterface();
 
-        GoogleWordProcessor gwp = new GoogleWordProcessor();
-        // gwp.processWords("./google-1000.txt");
-        // System.out.println(gwp.wordSet.contains("yes"));
-        System.out.println(gwp.processWords("./google-1000.txt", "./total-list.txt"));
+        WordListCreator wlc = new WordListCreator();
+        List<String> wordList = new ArrayList<>(wlc.generateList("./amend-total.txt"));
 
 
+
+
+
+        // GoogleWordProcessor gwp = new GoogleWordProcessor();
+        // // gwp.processWords("./google-1000.txt");
+        // // System.out.println(gwp.wordSet.contains("yes"));
+        // System.out.println(gwp.processWords("./google-1000.txt", "./total-list.txt"));
 
 
 
