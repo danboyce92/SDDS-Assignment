@@ -21,7 +21,10 @@ public class Runner {
         // runner.startInterface();
 
         WordListCreator wlc = new WordListCreator();
+        EmbeddingListCreator elc = new EmbeddingListCreator();
         List<String> wordList = new ArrayList<>(wlc.generateList("./amend-total.txt"));
+        List<double[]> embeddingList = new ArrayList<>(elc.generateList("./amend-total.txt")); 
+        System.out.println(Arrays.toString(embeddingList.get(1)));
 
 
 
