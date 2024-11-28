@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,10 @@ public class Runner {
         EmbeddingListCreator elc = new EmbeddingListCreator();
         List<String> wordList = new ArrayList<>(wlc.generateList("./amend-total.txt"));
         List<double[]> embeddingList = new ArrayList<>(elc.generateList("./amend-total.txt")); 
-        System.out.println(Arrays.toString(embeddingList.get(1)));
+
+        TotalMapCreator tmc = new TotalMapCreator();
+        HashMap<String, double[]> hashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
+        System.out.println(Arrays.toString(hashMap.get("has")));
 
 
 
