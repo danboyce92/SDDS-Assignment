@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
-public class TotalMapCreator implements MapGenerator {
+public class TotalMapCreator implements MapGenerator<List<double[]>> {
     private HashMap<String, double[]> map = new HashMap<>();
 
     public Map<String, double[]> generateMap(List<String> words, List<double[]> embeddings) throws IOException {

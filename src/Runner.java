@@ -24,11 +24,16 @@ public class Runner {
         WordListCreator wlc = new WordListCreator();
         EmbeddingListCreator elc = new EmbeddingListCreator();
         List<String> wordList = new ArrayList<>(wlc.generateList("./amend-total.txt"));
+        List<String> googleList = new ArrayList<>(wlc.generateList("./google-1000.txt"));
         List<double[]> embeddingList = new ArrayList<>(elc.generateList("./amend-total.txt")); 
 
         TotalMapCreator tmc = new TotalMapCreator();
-        HashMap<String, double[]> hashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
-        System.out.println(Arrays.toString(hashMap.get("has")));
+        HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
+        // System.out.println(Arrays.toString(hashMap.get("has")));
+        GoogleMapCreator gmc = new GoogleMapCreator();
+        HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
+
+
 
 
 
