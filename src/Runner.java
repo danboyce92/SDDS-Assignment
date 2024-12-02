@@ -1,12 +1,7 @@
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Runner {
@@ -15,34 +10,34 @@ public class Runner {
     //Default program settings
     private String embeddingFilePath = "./word-embeddings.txt";
     private String outputFilePath = "./searchResults.txt";
-    private String wordToSearch = "";
+    private String pathToInput = "../text-files/sample.txt";
+
 
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
         // runner.startInterface();
 
+
+
         WordListCreator wlc = new WordListCreator();
         EmbeddingListCreator elc = new EmbeddingListCreator();
-        List<String> wordList = new ArrayList<>(wlc.generateList("./amend-total.txt"));
-        List<String> googleList = new ArrayList<>(wlc.generateList("./google-1000.txt"));
-        List<double[]> embeddingList = new ArrayList<>(elc.generateList("./amend-total.txt")); 
+        List<String> wordList = new ArrayList<>(wlc.generateList("../text-files/amend-total.txt"));
+        List<String> googleList = new ArrayList<>(wlc.generateList("../text-files/google-1000.txt"));
+        List<double[]> embeddingList = new ArrayList<>(elc.generateList("../text-files/amend-total.txt")); 
 
         TotalMapCreator tmc = new TotalMapCreator();
         HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
-        // System.out.println(Arrays.toString(hashMap.get("has")));
+        // System.out.println(Arrays.toString(totalHashMap.get("has")));
         GoogleMapCreator gmc = new GoogleMapCreator();
         HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
+        List<double[]> googleEmbeddings = new ArrayList<>(googleHashMap.values());
+        InputParser ip = new InputParser();
+        System.out.println(ip.processFile("../text-files/sample.txt"));
+        
 
 
-
-
-
-
-
-        // GoogleWordProcessor gwp = new GoogleWordProcessor();
-        // // gwp.processWords("./google-1000.txt");
-        // // System.out.println(gwp.wordSet.contains("yes"));
-        // System.out.println(gwp.processWords("./google-1000.txt", "./total-list.txt"));
+        //I have all the pieces needed to start.
+        //Next create a method that will swap a word for the most similar word in google-1000
 
 
 
@@ -51,8 +46,6 @@ public class Runner {
 
         public void startInterface() throws IOException {
         //Initialization of program's other classes
-        EmbeddingExtractor ee = new EmbeddingExtractor();
-        GoogleWordProcessor gwp = new GoogleWordProcessor();
         // Comparator c = new Comparator(searchSize);
         // EmbeddingConverter ec = new EmbeddingConverter(searchSize);
         // OutputManager om = new OutputManager();
@@ -69,7 +62,7 @@ public class Runner {
             System.out.println("");
             System.out.println("(1) Specify Embedding File (currently: " + embeddingFilePath +")");
             System.out.println("(2) Specify an Output File (currently: " + outputFilePath + ")");
-            System.out.println("(3) Enter a Text Passage");
+            System.out.println("(3) Specify path to Input File (currently: " + pathToInput + ")");
             System.out.println("(4)");
             System.out.println("(5)");
             System.out.println("(6)");
@@ -94,8 +87,8 @@ public class Runner {
                     break;
                 case 3:
                     //Allows user to type the sentence they want altered
-                    System.out.print("Enter the text passage to modify: ");
-                    wordToSearch = s.nextLine();
+                    System.out.print("Enter path to file to be processed: ");
+                    pathToInput = s.nextLine();
                     System.out.println("");
                     break;
                 case 4:

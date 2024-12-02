@@ -1,4 +1,5 @@
 *.class
+
 searchResults.txt
 
 google-1000.txt
@@ -12,3 +13,5 @@ Solution.txt
 amend-total.txt
 
 missingWords.txt
+
+sample.txt
