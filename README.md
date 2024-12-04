@@ -92,12 +92,10 @@ For now just print result array to output destination and worry about formatting
 
 
 
+## Next
+Input parser takes a sample txt file, converts all words to Uppercase and returns all again including commas full stops and other things that find their way into sentences. All I have to do is remove the uppercasing logic and put in the swap logic.
 
-Create the similarity check in isolation.
-
-**SPANNER IN THE WORKS... NOT ALL GOOGLE_WORDS EXIST IN THE TOTALLIST**
-
-
+See is it possible to remove GoogleMapCreator & TotalMapCreator for just one class and have it work the same. The only thing to be aware of is that the generateMap function takes different parameters 
 
 
  
