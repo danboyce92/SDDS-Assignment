@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Runner {
     private Scanner s = new Scanner(System.in);
@@ -21,19 +22,36 @@ public class Runner {
 
         WordListCreator wlc = new WordListCreator();
         EmbeddingListCreator elc = new EmbeddingListCreator();
+        GoogleEmbeddingListCreator gelc = new GoogleEmbeddingListCreator();
+
         List<String> wordList = new ArrayList<>(wlc.generateList("../text-files/amend-total.txt"));
         List<String> googleList = new ArrayList<>(wlc.generateList("../text-files/google-1000.txt"));
         List<double[]> embeddingList = new ArrayList<>(elc.generateList("../text-files/amend-total.txt")); 
+        
 
         TotalMapCreator tmc = new TotalMapCreator();
         HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
         // System.out.println(Arrays.toString(totalHashMap.get("has")));
         GoogleMapCreator gmc = new GoogleMapCreator();
         HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
-        List<double[]> googleEmbeddings = new ArrayList<>(googleHashMap.values());
+        // List<double[]> googleEmbeddings = new ArrayList<>(googleHashMap.values());
+        List<double[]> googleEmbeddings = new ArrayList<>(gelc.createEmbeddingList(totalHashMap, googleList));
         InputParser ip = new InputParser();
-        System.out.println(ip.processFile("../text-files/sample.txt"));
-        
+        //System.out.println(ip.processFile("../text-files/sample.txt"));
+
+
+
+        WordSwapper ws = new WordSwapper();
+
+
+        //Troubleshooting****
+        //Check the 5th element of googleWordList
+        //Check the 5th element of googleEmbeddingList
+        //They do not equate..
+        //Need to fix how Im creating the googleEmbeddings List
+
+        // System.out.println(googleList.get(5));
+        // System.out.println(Arrays.toString(googleEmbeddings.get(5)));
 
 
         //I have all the pieces needed to start.

@@ -23,6 +23,7 @@ public class InputParser {
 
                 // If the match is a word, convert it to uppercase
                 if (match.matches("[a-zA-Z]+")) {
+                    //Append altered word here***
                     result.append(match.toUpperCase());
                 } else {
                     // If it's punctuation, append it as is

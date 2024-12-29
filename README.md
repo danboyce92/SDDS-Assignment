@@ -98,4 +98,6 @@ Input parser takes a sample txt file, converts all words to Uppercase and return
 See is it possible to remove GoogleMapCreator & TotalMapCreator for just one class and have it work the same. The only thing to be aware of is that the generateMap function takes different parameters 
 
 
- 
+ ## Problems encountered worth mentioning
+
+ An issue that took a while to overcome was giving me results that seemed unrelated to each other. I soon realised how I was implementing the google embeddings list was wrong. I initialised the googleEmbeddings list after I created the googleWordMap so at first I created the embeddings list with this googleHashMap.values(). Without realising that the hashMap does not return the values in the order that they were created in. This jumbled the embeddings up with random words creating nonsense and a headache.
