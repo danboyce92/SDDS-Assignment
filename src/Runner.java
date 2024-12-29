@@ -49,13 +49,18 @@ public class Runner {
 
         InputParser ip = new InputParser();
         //System.out.println(ip.processFile("../text-files/sample.txt"));
-
-
-
         WordSwapper ws = new WordSwapper();
 
+        Threads t = new Threads();
 
+        List<String> testList = new ArrayList<>();
+        testList.add("hello");
+        testList.add("chocolate");
+        testList.add("rich");
+        testList.add("business");
+        testList.add("sequence");
 
+        System.out.println(t.go(testList, googleList, googleEmbeddings, googleHashMap, totalHashMap));
 
 
     }

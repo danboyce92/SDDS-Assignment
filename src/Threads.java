@@ -1,50 +1,49 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
 public class Threads {
-    List<Future<String>> futures = new ArrayList<>();  // List to store Future<String> objects
+    private WordSwapper ws = new WordSwapper();
+    private final List<Future<String>> futures = new ArrayList<>();
 
-
-    //Stick actual swap() method in to see if it works
-    public String swap(String word) {
-        return word;
+    public String swap(double[] word, List<String> googleWords, List<double[]> googleEmbeddings) {
+        return ws.swapWord(word, googleWords , googleEmbeddings);
     }
 
-    public void go(List<String> words) {
-
+    // Process the list using virtual threads
+    public List<String> go(List<String> wordsToChange, List<String> googleWords, List<double[]> googleEmbeddings, HashMap<String, double[]>googleMap, HashMap<String, double[]> totalMap) {
+        List<String> results = new ArrayList<>(); // List to store final results
 
         try (var pool = Executors.newVirtualThreadPerTaskExecutor()) {
-            IntStream.range(0, words.size()).forEach(i -> {
-                String word = words.get(i);
+            IntStream.range(0, wordsToChange.size()).forEach(i -> {
+                String word = wordsToChange.get(i);
 
-                Callable<String> task = new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        return swap(word);
-                    }
-                };
-
-                // Submit a virtual thread for each word and store the Future<String> in the list
-                Future<String> future = pool.submit(task);
-                futures.add(future);
+                if (googleMap.containsKey(word)) {
+                    //If word is in google, send as is
+                    Future<String> future = CompletableFuture.completedFuture(word);
+                    futures.add(future);
+                } else {
+                    //If not, create a thread to process it.
+                    double[] currentWordEmbed = totalMap.get(word);
+                    Callable<String> task = () -> swap(currentWordEmbed, googleWords, googleEmbeddings);
+                    Future<String> future = pool.submit(task);
+                    futures.add(future);
+                }
             });
         }
 
+        //Return results from method
+        futures.forEach(future -> {
+            try {
+                String result = future.get();
+                results.add(result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
-        // futures.forEach(future -> {
-        //     try {
-        //         String result = future.get();
-        //         // Do something with the result if needed
-        //         System.out.println(result);  // Example: printing the result
-        //     } catch (Exception e) {
-        //         // Handle exceptions (e.g., interrupted or execution errors)
-        //         e.printStackTrace();
-        //     }
-        // });
-
-        //What should I do with the results? Return them?
-
+        return results;
     }
 }
