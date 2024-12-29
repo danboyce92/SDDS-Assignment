@@ -27,15 +27,26 @@ public class Runner {
         List<String> wordList = new ArrayList<>(wlc.generateList("../text-files/amend-total.txt"));
         List<String> googleList = new ArrayList<>(wlc.generateList("../text-files/google-1000.txt"));
         List<double[]> embeddingList = new ArrayList<>(elc.generateList("../text-files/amend-total.txt")); 
-        
 
         TotalMapCreator tmc = new TotalMapCreator();
         HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
-        // System.out.println(Arrays.toString(totalHashMap.get("has")));
+
         GoogleMapCreator gmc = new GoogleMapCreator();
         HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
-        // List<double[]> googleEmbeddings = new ArrayList<>(googleHashMap.values());
         List<double[]> googleEmbeddings = new ArrayList<>(gelc.createEmbeddingList(totalHashMap, googleList));
+       
+        //^^^ The above is necessary at program launch
+        //Next should take care of everything that needs to be in place for swap to run
+        //Path variables etc that are dynamic make sure they are set.
+
+
+
+
+        //^^^ The above is necessary to run swap with no errors
+        //Next you should run the swap ( Virtual Threads )
+        //And return results to a new file specified in the previous section
+
+
         InputParser ip = new InputParser();
         //System.out.println(ip.processFile("../text-files/sample.txt"));
 
@@ -43,19 +54,6 @@ public class Runner {
 
         WordSwapper ws = new WordSwapper();
 
-
-        //Troubleshooting****
-        //Check the 5th element of googleWordList
-        //Check the 5th element of googleEmbeddingList
-        //They do not equate..
-        //Need to fix how Im creating the googleEmbeddings List
-
-        // System.out.println(googleList.get(5));
-        // System.out.println(Arrays.toString(googleEmbeddings.get(5)));
-
-
-        //I have all the pieces needed to start.
-        //Next create a method that will swap a word for the most similar word in google-1000
 
 
 
