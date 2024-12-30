@@ -3,74 +3,55 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Runner {
     private Scanner s = new Scanner(System.in);
     private boolean isRunning = false;
     //Default program settings
-    private String embeddingFilePath = "./word-embeddings.txt";
-    private String commonWordsPath = "./google-1000.txt";
+    private String embeddingFilePath = "../text-files/amend-total.txt";
+    private String commonWordsPath = "../text-files/google-1000.txt";
     private String outputFilePath = "./searchResults.txt";
     private String pathToInput = "../text-files/sample.txt";
 
 
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
-        // runner.startInterface();
+        runner.startInterface();
 
+        // InputParser ip = new InputParser();
+        // //System.out.println(ip.processFile("../text-files/sample.txt"));
 
+        // Threads t = new Threads();
 
+        // List<String> testList = new ArrayList<>();
+        // testList.add("hello");
+        // testList.add("chocolate");
+        // testList.add("rich");
+        // testList.add("business");
+        // testList.add("sequence");
+
+        // System.out.println(t.go(testList, googleList, googleEmbeddings, googleHashMap, totalHashMap));
+    }
+
+        public void startInterface() throws IOException {
+        //Instantiate List Creator classes
         WordListCreator wlc = new WordListCreator();
         EmbeddingListCreator elc = new EmbeddingListCreator();
         GoogleEmbeddingListCreator gelc = new GoogleEmbeddingListCreator();
 
-        List<String> wordList = new ArrayList<>(wlc.generateList("../text-files/amend-total.txt"));
-        List<String> googleList = new ArrayList<>(wlc.generateList("../text-files/google-1000.txt"));
-        List<double[]> embeddingList = new ArrayList<>(elc.generateList("../text-files/amend-total.txt")); 
+        //Generate Lists
+        List<String> wordList = new ArrayList<>(wlc.generateList(embeddingFilePath));
+        List<double[]> embeddingList = new ArrayList<>(elc.generateList(embeddingFilePath)); 
+        List<String> googleList = new ArrayList<>(wlc.generateList(commonWordsPath));
 
+        //Instantiate Map Creators and generate them
         TotalMapCreator tmc = new TotalMapCreator();
         HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
-
         GoogleMapCreator gmc = new GoogleMapCreator();
         HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
+
+        //Get commonEmbeddings from HashMap
         List<double[]> googleEmbeddings = new ArrayList<>(gelc.createEmbeddingList(totalHashMap, googleList));
-       
-        //^^^ The above is necessary at program launch
-        //Next should take care of everything that needs to be in place for swap to run
-        //Path variables etc that are dynamic make sure they are set.
-
-
-
-
-        //^^^ The above is necessary to run swap with no errors
-        //Next you should run the swap ( Virtual Threads )
-        //And return results to a new file specified in the previous section
-
-
-        InputParser ip = new InputParser();
-        //System.out.println(ip.processFile("../text-files/sample.txt"));
-
-
-        Threads t = new Threads();
-
-        List<String> testList = new ArrayList<>();
-        testList.add("hello");
-        testList.add("chocolate");
-        testList.add("rich");
-        testList.add("business");
-        testList.add("sequence");
-
-        System.out.println(t.go(testList, googleList, googleEmbeddings, googleHashMap, totalHashMap));
-
-
-    }
-
-        public void startInterface() throws IOException {
-        //Initialization of program's other classes
-        // Comparator c = new Comparator(searchSize);
-        // EmbeddingConverter ec = new EmbeddingConverter(searchSize);
-        // OutputManager om = new OutputManager();
         
         isRunning = true;
         while(isRunning) {
@@ -123,6 +104,13 @@ public class Runner {
 
                 case 5:
                     //Run Program
+                    //Remember to put a check in here to verify all necessary paths have been provided.
+
+                    if (pathCheck(embeddingFilePath, commonWordsPath, pathToInput, outputFilePath)) {
+                        //Run
+                    } else {
+                        System.out.print("Please ensure you have set a path for all required..");
+                    }
                     System.out.print("");
                     break;
                 case 6:
@@ -150,5 +138,10 @@ public class Runner {
         }
     }
 
+    private boolean pathCheck(String embeddingPath, String commonEmbeddingPath, String inputPath, String outputPath) {
+        if (embeddingPath == "empty" || commonEmbeddingPath == "empty" || inputPath == "empty" || outputPath == "empty") {
+            return false;
+        } else return true;
+    }
     
 }
