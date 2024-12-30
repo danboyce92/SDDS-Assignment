@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.ArrayList;
 
 public class Runner {
@@ -101,13 +102,24 @@ public class Runner {
                     outputFilePath = s.nextLine();
                     System.out.println("The path you have chosen is " + outputFilePath);
                     break;
-
                 case 5:
                     //Run Program
                     //Remember to put a check in here to verify all necessary paths have been provided.
 
                     if (pathCheck(embeddingFilePath, commonWordsPath, pathToInput, outputFilePath)) {
                         //Run
+                        InputParser ip = new InputParser();
+                        ip.processFile(pathToInput);
+                        List<String> wordsToProcess = ip.getWords();
+
+                        Threads t = new Threads();
+                        List<String> changedWords = t.go(wordsToProcess, googleList, googleEmbeddings, googleHashMap, totalHashMap);
+                        List<String> otherList = ip.getOther();
+                        Set<Integer> indexes = ip.getSet();
+
+                        OutputFileBuilder ofb = new OutputFileBuilder();
+                        ofb.createOutputFile(changedWords, otherList, indexes, outputFilePath);
+
                     } else {
                         System.out.print("Please ensure you have set a path for all required..");
                     }
@@ -131,8 +143,8 @@ public class Runner {
                     isRunning = false;
                     break;
                 default:
-                    //In case a user enters something other than a number between 0-7
-                    System.out.println("Please select a number between 0-7");
+                    //In case a user enters something other than a number between 0-8
+                    System.out.println("Please select a number between 0-8");
                     break;
             }
         }

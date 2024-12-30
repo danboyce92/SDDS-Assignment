@@ -101,3 +101,20 @@ See is it possible to remove GoogleMapCreator & TotalMapCreator for just one cla
  ## Problems encountered worth mentioning
 
  An issue that took a while to overcome was giving me results that seemed unrelated to each other. I soon realised how I was implementing the google embeddings list was wrong. I initialised the googleEmbeddings list after I created the googleWordMap so at first I created the embeddings list with this googleHashMap.values(). Without realising that the hashMap does not return the values in the order that they were created in. This jumbled the embeddings up with random words creating nonsense and a headache.
+
+
+ WHAT IS LEFT TO DO
+ Now I just need to create the input parser that will extract the words into a List<String>
+ And pass that List into the Threads.go()
+
+
+ Input parser thoughts
+ Have it parse the input file.
+ Use Pattern and matcher to identify if it's a word or punctuation.
+ If it's a word, place in wordList
+ If it's punctuation or something else place in otherList
+ Problem to solve :
+    How do I stitch it all back together in the correct order?
+    Using a third array?
+    Third array to keep track of all the indexes of punctuation or others.
+    When sticking back together, if the loop is at an index that is contained inside the third array, insert punctuation instead.

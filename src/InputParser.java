@@ -1,38 +1,56 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputParser {
-    public static String processFile(String filepath) throws IOException {
-        StringBuilder result = new StringBuilder();
+    List<String> wordList = new ArrayList<>();
+    List<String> otherList = new ArrayList<>();
+    Set<Integer> indexes = new HashSet<Integer>();
+
+    //processFile should retrieve and organise the words and punctuation into separate Lists
+    //Keep track of the indexes for punctuation in a Set so the order can be maintained
+
+    public void processFile(String filepath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
         String line;
+        int index = 0;
 
-        // Pattern to match words and punctuation separately
-        // [a-zA-Z]+ matches words, and [^a-zA-Z]+ matches everything else (punctuation, spaces, etc.)
         Pattern pattern = Pattern.compile("[a-zA-Z]+|[^a-zA-Z]+");
 
-        // Read file line by line
+
         while ((line = reader.readLine()) != null) {
-            // Find all words and punctuation in the line
             Matcher matcher = pattern.matcher(line);
             while (matcher.find()) {
                 String match = matcher.group();
 
-                // If the match is a word, convert it to uppercase
+                // If the match is a word, add it to wordList
                 if (match.matches("[a-zA-Z]+")) {
-                    //Append altered word here***
-                    result.append(match.toUpperCase());
+                    wordList.add(match);
                 } else {
-                    // If it's punctuation, append it as is
-                    result.append(match);
+                    //Otherwise add to punctuation list and take note of index
+                    otherList.add(match);
+                    indexes.add(index);
                 }
+                index++;
             }
-            result.append("\n"); // Maintain the line breaks
         }
         reader.close();
-        return result.toString().trim(); // Return the result
+    }
+
+    public List<String> getWords() {
+        return wordList;
+    };
+
+    public List<String> getOther() {
+        return otherList;
+    }
+    public Set<Integer> getSet() {
+        return indexes;
     }
 }

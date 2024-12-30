@@ -20,16 +20,17 @@ public class Threads {
             IntStream.range(0, wordsToChange.size()).forEach(i -> {
                 String word = wordsToChange.get(i);
 
-                if (googleMap.containsKey(word)) {
-                    //If word is in google, send as is
+                if (googleMap.containsKey(word) || !totalMap.containsKey(word)) {
+                    //send as is
                     Future<String> future = CompletableFuture.completedFuture(word);
                     futures.add(future);
                 } else {
-                    //If not, create a thread to process it.
+                    //Otherwise create a thread to process it.
                     double[] currentWordEmbed = totalMap.get(word);
                     Callable<String> task = () -> swap(currentWordEmbed, googleWords, googleEmbeddings);
                     Future<String> future = pool.submit(task);
                     futures.add(future);
+                    
                 }
             });
         }
