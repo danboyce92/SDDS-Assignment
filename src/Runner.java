@@ -10,6 +10,7 @@ public class Runner {
     private boolean isRunning = false;
     //Default program settings
     private String embeddingFilePath = "./word-embeddings.txt";
+    private String commonWordsPath = "./google-1000.txt";
     private String outputFilePath = "./searchResults.txt";
     private String pathToInput = "../text-files/sample.txt";
 
@@ -49,7 +50,7 @@ public class Runner {
 
         InputParser ip = new InputParser();
         //System.out.println(ip.processFile("../text-files/sample.txt"));
-        WordSwapper ws = new WordSwapper();
+
 
         Threads t = new Threads();
 
@@ -82,14 +83,15 @@ public class Runner {
             System.out.println("PLEASE MOVE THROUGH THESE SEQUENTIALLY TO AVOID POTENTIAL ERRORS");
             System.out.println("");
             System.out.println("(1) Specify Embedding File (currently: " + embeddingFilePath +")");
-            System.out.println("(2) Specify an Output File (currently: " + outputFilePath + ")");
+            System.out.println("(2) Specify an Common Words File (currently: " + commonWordsPath + ")");
             System.out.println("(3) Specify path to Input File (currently: " + pathToInput + ")");
-            System.out.println("(4)");
-            System.out.println("(5)");
+            System.out.println("(4) Specify path to Output File (currently: " + outputFilePath + ")");
+            System.out.println("(5) Run Program ");
             System.out.println("(6)");
-            System.out.println("(7) Run Modification");
+            System.out.println("(7)");
+            System.out.println("(8)");
             System.out.println("(0) Quit");
-            System.out.println("Select Option [0-7]>");
+            System.out.println("Select Option [0-8]>");
 
             String input = s.nextLine();
             int userInput = Integer.parseInt(input);
@@ -102,31 +104,38 @@ public class Runner {
                     break;
                 case 2:
                     //Allows user to specify output file path
+                    System.out.print("Enter the path for the common words file: ");
+                    outputFilePath = s.nextLine();
+                    System.out.println("The path you have chosen is " + commonWordsPath);
+                    break;
+                case 3:
+                    //Allows user to type the sentence they want altered
+                    System.out.print("Enter path to input file to be processed: ");
+                    pathToInput = s.nextLine();
+                    System.out.println("The path you have chosen is " + pathToInput);
+                    break;
+                case 4:
+                    //Allows user to specify output file path
                     System.out.print("Enter the output file path: ");
                     outputFilePath = s.nextLine();
                     System.out.println("The path you have chosen is " + outputFilePath);
                     break;
-                case 3:
-                    //Allows user to type the sentence they want altered
-                    System.out.print("Enter path to file to be processed: ");
-                    pathToInput = s.nextLine();
-                    System.out.println("");
-                    break;
-                case 4:
-                    //Currently not in use
-                    System.out.print("Currently empty...");
-                    break;
+
                 case 5:
-                    //Currently not in use
-                    System.out.println("Currently empty...");
+                    //Run Program
+                    System.out.print("");
                     break;
                 case 6:
                     //Currently not in use
                     System.out.println("Currently empty...");
                     break;
-                case 7: 
-                    //Run program
-                    System.out.println("Where all components come together and execute program");
+                case 7:
+                    //Currently not in use
+                    System.out.println("Currently empty...");
+                    break;
+                case 8: 
+                    //Currently not in use
+                    System.out.println("Currently empty...");
                     break;
                 case 0:
                     //Allows user to quit program
