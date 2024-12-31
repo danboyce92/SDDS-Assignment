@@ -118,3 +118,12 @@ See is it possible to remove GoogleMapCreator & TotalMapCreator for just one cla
     Using a third array?
     Third array to keep track of all the indexes of punctuation or others.
     When sticking back together, if the loop is at an index that is contained inside the third array, insert punctuation instead.
+
+Problem to solve :
+   program does not process words with capital letters.
+   Add the ability to detect an uppercase word,
+      lowercase it before searching for change,
+      make uppercase again after change
+
+INSTEAD OF USING HASHMAP
+use another Set to take note of the index at which a capital letter occurs. This way You can capitalise inside the ofb maybe?

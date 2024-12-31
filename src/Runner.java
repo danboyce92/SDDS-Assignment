@@ -111,20 +111,22 @@ public class Runner {
                         InputParser ip = new InputParser();
                         ip.processFile(pathToInput);
                         List<String> wordsToProcess = ip.getWords();
-
-                        Threads t = new Threads();
-                        List<String> changedWords = t.go(wordsToProcess, googleList, googleEmbeddings, googleHashMap, totalHashMap);
                         List<String> otherList = ip.getOther();
                         Set<Integer> indexes = ip.getPuncSet();
                         Set<Integer> lineSet = ip.getLineSet();
+                        Set<Integer> capCheck = ip.getCapsSet();
+
+                        Threads t = new Threads();
+                        List<String> changedWords = t.go(wordsToProcess, googleList, googleEmbeddings, googleHashMap, totalHashMap);
 
                         OutputFileBuilder ofb = new OutputFileBuilder();
-                        ofb.createOutputFile(changedWords, otherList, indexes, lineSet, outputFilePath);
+                        ofb.createOutputFile(changedWords, otherList, indexes, lineSet, capCheck, outputFilePath);
 
                     } else {
                         System.out.print("Please ensure you have set a path for all required..");
                     }
-                    System.out.print("");
+                    System.out.print("File processed, please examine file at the output path provided");
+                    System.out.println("");
                     break;
                 case 6:
                     //Currently not in use

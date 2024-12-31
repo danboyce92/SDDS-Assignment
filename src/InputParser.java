@@ -9,10 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputParser {
+    //Creates separate lists and sets for keeping track of the order of words and punctuation and new lines
+
     List<String> wordList = new ArrayList<>();
     List<String> otherList = new ArrayList<>();
     Set<Integer> indexes = new HashSet<Integer>();
     Set<Integer> lineSet = new HashSet<Integer>();
+    Set<Integer> capWordSet = new HashSet<Integer>();
 
     //processFile should retrieve and organise the words and punctuation into separate Lists
     //Keep track of the indexes for punctuation in a Set so the order can be maintained
@@ -24,16 +27,18 @@ public class InputParser {
 
         Pattern pattern = Pattern.compile("[a-zA-Z]+|[^a-zA-Z]+");
 
-
         while ((line = reader.readLine()) != null) {
-
             Matcher matcher = pattern.matcher(line);
             while (matcher.find()) {
                 String match = matcher.group();
 
                 // If the match is a word, add it to wordList
                 if (match.matches("[a-zA-Z]+")) {
-                    wordList.add(match);
+                    //Keeps track of words with capitals
+                    if (Character.isUpperCase(match.charAt(0))) {
+                        capWordSet.add(index);
+                    }
+                    wordList.add(match.toLowerCase());
                 } else {
                     //Otherwise add to punctuation list and take note of index
                     otherList.add(match);
@@ -59,6 +64,9 @@ public class InputParser {
     }
     public Set<Integer> getLineSet() {
         return lineSet;
+    }
+    public Set<Integer> getCapsSet() {
+        return capWordSet;
     }
 
 }
