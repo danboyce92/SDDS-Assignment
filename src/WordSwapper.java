@@ -2,6 +2,9 @@ import java.util.List;
 
 public class WordSwapper {
     
+    //SwapWord uses a time complexity of O(n)
+    //More specifically it's time complexity looks a bit more like this O(n * m)
+    //Where n is the length of googleEmbeddings and m is the length of the embedding cosSimilarity has to process
     public String swapWord(double[] wordToChange,List<String> googleWords, List<double[]> googleEmbeddings) {
         double[] closest = null;
         double highest = -1;
@@ -24,6 +27,9 @@ public class WordSwapper {
         return replacement;
     }
 
+    //CosSimilarity uses the time complexity of O(n)
+    //It does so because it has a loop that iterates through the length of v1.
+    //So if the length of v1 increases or decreases, so to will the number of operations required
     private double cosSimilarity(double[] v1, double[] v2) {
         double dotProduct = 0.0;
         double normV1 = 0.0;
