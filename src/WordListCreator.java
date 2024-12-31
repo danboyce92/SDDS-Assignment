@@ -6,6 +6,8 @@ import java.util.List;
 
 public class WordListCreator implements ListGenerator<String> {
 
+    //Generate List runs at a time complexity of O(n)
+    //The larger or smaller the file provided gets, the workload of the method increases or decreases linearly or at the same rate.
     public List<String> generateList(String filePath) throws IOException {
         List<String> wordList = new ArrayList<>();
         
@@ -21,5 +23,4 @@ public class WordListCreator implements ListGenerator<String> {
 
         return wordList;  
     }
-
 }

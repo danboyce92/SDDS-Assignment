@@ -18,22 +18,11 @@ public class Runner {
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
         runner.startInterface();
-
-        // InputParser ip = new InputParser();
-        // //System.out.println(ip.processFile("../text-files/sample.txt"));
-
-        // Threads t = new Threads();
-
-        // List<String> testList = new ArrayList<>();
-        // testList.add("hello");
-        // testList.add("chocolate");
-        // testList.add("rich");
-        // testList.add("business");
-        // testList.add("sequence");
-
-        // System.out.println(t.go(testList, googleList, googleEmbeddings, googleHashMap, totalHashMap));
     }
 
+        //StartInterface runs at an indeterminate time complexity
+        //StartInterface uses a while loop that continues until it receives specific user input to tell it otherwise.
+        //I think because of this the user is the determining factor between whether the method is O(1) or O(∞)
         public void startInterface() throws IOException {
         //Instantiate List Creator classes
         WordListCreator wlc = new WordListCreator();
@@ -153,8 +142,10 @@ public class Runner {
         }
     }
 
+    //PathCheck uses a time complexity of O(1)
+    //It is constant because there is a fixed number of operations no matter the input size.
     private boolean pathCheck(String embeddingPath, String commonEmbeddingPath, String inputPath, String outputPath) {
-        if (embeddingPath == "empty" || commonEmbeddingPath == "empty" || inputPath == "empty" || outputPath == "empty") {
+        if (embeddingPath.equals("empty") || commonEmbeddingPath.equals("empty") || inputPath.equals("empty") || outputPath.equals("empty")) {
             return false;
         } else return true;
     }

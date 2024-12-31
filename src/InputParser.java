@@ -20,6 +20,8 @@ public class InputParser {
     //processFile should retrieve and organise the words and punctuation into separate Lists
     //Keep track of the indexes for punctuation in a Set so the order can be maintained
 
+    //ProcessFile runs at a time complexity of O(n)
+    //The amount of operations this method has scales proportionatly to the size of the input provided.
     public void processFile(String filepath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
         String line;
