@@ -115,10 +115,11 @@ public class Runner {
                         Threads t = new Threads();
                         List<String> changedWords = t.go(wordsToProcess, googleList, googleEmbeddings, googleHashMap, totalHashMap);
                         List<String> otherList = ip.getOther();
-                        Set<Integer> indexes = ip.getSet();
+                        Set<Integer> indexes = ip.getPuncSet();
+                        Set<Integer> lineSet = ip.getLineSet();
 
                         OutputFileBuilder ofb = new OutputFileBuilder();
-                        ofb.createOutputFile(changedWords, otherList, indexes, outputFilePath);
+                        ofb.createOutputFile(changedWords, otherList, indexes, lineSet, outputFilePath);
 
                     } else {
                         System.out.print("Please ensure you have set a path for all required..");

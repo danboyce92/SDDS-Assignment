@@ -12,6 +12,7 @@ public class InputParser {
     List<String> wordList = new ArrayList<>();
     List<String> otherList = new ArrayList<>();
     Set<Integer> indexes = new HashSet<Integer>();
+    Set<Integer> lineSet = new HashSet<Integer>();
 
     //processFile should retrieve and organise the words and punctuation into separate Lists
     //Keep track of the indexes for punctuation in a Set so the order can be maintained
@@ -25,6 +26,7 @@ public class InputParser {
 
 
         while ((line = reader.readLine()) != null) {
+
             Matcher matcher = pattern.matcher(line);
             while (matcher.find()) {
                 String match = matcher.group();
@@ -39,6 +41,8 @@ public class InputParser {
                 }
                 index++;
             }
+            lineSet.add(index);
+            index++;
         }
         reader.close();
     }
@@ -50,7 +54,11 @@ public class InputParser {
     public List<String> getOther() {
         return otherList;
     }
-    public Set<Integer> getSet() {
+    public Set<Integer> getPuncSet() {
         return indexes;
     }
+    public Set<Integer> getLineSet() {
+        return lineSet;
+    }
+
 }
