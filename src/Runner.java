@@ -9,10 +9,10 @@ public class Runner {
     private Scanner s = new Scanner(System.in);
     private boolean isRunning = false;
     //Default program settings
-    private String embeddingFilePath = "../text-files/amend-total.txt";
-    private String commonWordsPath = "../text-files/google-1000.txt";
+    private String embeddingFilePath = "empty";
+    private String commonWordsPath = "empty";
     private String outputFilePath = "empty";
-    private String pathToInput = "../text-files/sample.txt";
+    private String pathToInput = "empty";
 
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
