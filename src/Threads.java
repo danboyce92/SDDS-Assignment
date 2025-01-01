@@ -12,10 +12,19 @@ public class Threads {
     private String swap(double[] word, List<String> googleWords, List<double[]> googleEmbeddings) {
         return ws.swapWord(word, googleWords , googleEmbeddings);
     }
-
-    // Process the list using virtual threads
-    //Go uses a time complexity of either quadratic or maybe even cubic
-    //Worst case scenario, if n = wordsToChange, m = the amount of words that need to call swap() Then n = m and it is at least quadratic
+    
+    /**
+     * Process the list using virtual threads
+     * Go uses a time complexity of either quadratic or maybe even cubic
+     * Worst case scenario, if n = wordsToChange, m = the amount of words that need to call swap() Then n = m and it is at least quadratic
+     *
+     * @param wordsToChange
+     * @param googleWords
+     * @param googleEmbeddings
+     * @param googleMap
+     * @param totalMap
+     * @return results List<String>
+     */
     public List<String> go(List<String> wordsToChange, List<String> googleWords, List<double[]> googleEmbeddings, HashMap<String, double[]>googleMap, HashMap<String, double[]> totalMap) {
         List<String> results = new ArrayList<>(); // List to store final results
 

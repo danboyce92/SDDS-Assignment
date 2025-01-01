@@ -137,7 +137,10 @@ public class Runner {
     //PathCheck uses a time complexity of O(1)
     //It is constant because there is a fixed number of operations no matter the input size.
     private boolean pathCheck(String embeddingPath, String commonEmbeddingPath, String inputPath, String outputPath) {
-        if (embeddingPath.equals("empty") || commonEmbeddingPath.equals("empty") || inputPath.equals("empty") || outputPath.equals("empty")) {
+        if (embeddingPath.equals("empty") 
+            || commonEmbeddingPath.equals("empty") 
+            || inputPath.equals("empty") 
+            || outputPath.equals("empty")) {
             return false;
         } else return true;
     }

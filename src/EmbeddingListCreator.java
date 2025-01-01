@@ -7,8 +7,14 @@ import java.util.List;
 public class EmbeddingListCreator implements ListGenerator<double[]> {
     private List<double[]> embeddingList = new ArrayList<>();
 
-    //Generate List runs at a time complexity of O(n)
-    //The larger or smaller the file provided gets, the workload of the method increases or decreases linearly or at the same rate.
+    /**
+     * Generate List runs at a time complexity of O(n)
+     * The larger or smaller the file provided gets, the workload of the method increases or decreases linearly or at the same rate.
+     *
+     * @param filePath
+     * @return embeddingList List<double[]>
+     * @throws IOException
+     */
     public List<double[]> generateList(String filePath) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;

@@ -7,9 +7,19 @@ import java.util.Set;
 
 public class OutputFileBuilder {
 
-    //CreateOutputFile uses time complexity of O(n)
-    //It has a while loop that runs n times where n = the size of the words + punctuation list
-    //Every other operation inside the loop appears to be O(1) Constant
+    /**
+     * CreateOutputFile uses time complexity of O(n)
+     * It has a while loop that runs n times where n = the size of the words + punctuation list
+     * Every other operation inside the loop appears to be O(1) Constant
+     *
+     * @param changedWords
+     * @param other
+     * @param indexes
+     * @param lineSet
+     * @param capCheck
+     * @param outputPath
+     * @return void
+     */
     public void createOutputFile(List<String> changedWords, List<String> other, Set<Integer> indexes, Set<Integer> lineSet, Set<Integer> capCheck, String outputPath) {
         File file = new File(outputPath);
 
