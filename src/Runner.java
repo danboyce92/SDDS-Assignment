@@ -11,22 +11,21 @@ public class Runner {
     //Default program settings
     private String embeddingFilePath = "../text-files/amend-total.txt";
     private String commonWordsPath = "../text-files/google-1000.txt";
-    private String outputFilePath = "./searchResults.txt";
+    private String outputFilePath = "empty";
     private String pathToInput = "../text-files/sample.txt";
-
 
     public static void main(String[] args) throws IOException {
         Runner runner = new Runner();
         runner.startInterface();
     }
 
-        //StartInterface runs at an indeterminate time complexity
-        //StartInterface uses a while loop that continues until it receives specific user input to tell it otherwise.
-        //I think because of this the user is the determining factor between whether the method is O(1) or O(∞)
-        public void startInterface() throws IOException {
+    //StartInterface runs at an indeterminate time complexity
+    //StartInterface uses a while loop that continues until it receives specific user input to tell it otherwise.
+    //I think because of this the user is the determining factor between whether the method is O(1) or O(∞)
+    public void startInterface() throws IOException {
         //Instantiate List Creator classes
-        WordListCreator wlc = new WordListCreator();
-        EmbeddingListCreator elc = new EmbeddingListCreator();
+        ListGenerator<String> wlc = new WordListCreator();
+        ListGenerator<double[]> elc = new EmbeddingListCreator();
         GoogleEmbeddingListCreator gelc = new GoogleEmbeddingListCreator();
 
         //Generate Lists
@@ -35,9 +34,9 @@ public class Runner {
         List<String> googleList = new ArrayList<>(wlc.generateList(commonWordsPath));
 
         //Instantiate Map Creators and generate them
-        TotalMapCreator tmc = new TotalMapCreator();
+        MapGenerator<List<double[]>> tmc = new TotalMapCreator();
         HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
-        GoogleMapCreator gmc = new GoogleMapCreator();
+        MapGenerator<HashMap<String, double[]>> gmc = new GoogleMapCreator();
         HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
 
         //Get commonEmbeddings from HashMap
@@ -53,16 +52,13 @@ public class Runner {
             System.out.println("************************************************************");
             System.out.println("PLEASE MOVE THROUGH THESE SEQUENTIALLY TO AVOID POTENTIAL ERRORS");
             System.out.println("");
-            System.out.println("(1) Specify Embedding File (currently: " + embeddingFilePath +")");
-            System.out.println("(2) Specify an Common Words File (currently: " + commonWordsPath + ")");
+            System.out.println("(1) Specify an Embedding File (currently: " + embeddingFilePath +")");
+            System.out.println("(2) Specify a Common Words File (currently: " + commonWordsPath + ")");
             System.out.println("(3) Specify path to Input File (currently: " + pathToInput + ")");
             System.out.println("(4) Specify path to Output File (currently: " + outputFilePath + ")");
             System.out.println("(5) Run Program ");
-            System.out.println("(6)");
-            System.out.println("(7)");
-            System.out.println("(8)");
             System.out.println("(0) Quit");
-            System.out.println("Select Option [0-8]>");
+            System.out.println("Select Option [0-5]>");
 
             String input = s.nextLine();
             int userInput = Integer.parseInt(input);
@@ -111,23 +107,19 @@ public class Runner {
                         OutputFileBuilder ofb = new OutputFileBuilder();
                         ofb.createOutputFile(changedWords, otherList, indexes, lineSet, capCheck, outputFilePath);
 
+                        System.out.println("");
+                        System.out.println("***");
+                        System.out.println("File processed, please examine file at the output path provided");
+                        System.out.println("***");
+                        System.out.println("");
+
                     } else {
-                        System.out.print("Please ensure you have set a path for all required..");
+                        System.out.println("");
+                        System.out.println("***");
+                        System.out.println("Please ensure you have set a path for all required..");
+                        System.out.println("***");
+                        System.out.println("");
                     }
-                    System.out.print("File processed, please examine file at the output path provided");
-                    System.out.println("");
-                    break;
-                case 6:
-                    //Currently not in use
-                    System.out.println("Currently empty...");
-                    break;
-                case 7:
-                    //Currently not in use
-                    System.out.println("Currently empty...");
-                    break;
-                case 8: 
-                    //Currently not in use
-                    System.out.println("Currently empty...");
                     break;
                 case 0:
                     //Allows user to quit program
@@ -135,8 +127,8 @@ public class Runner {
                     isRunning = false;
                     break;
                 default:
-                    //In case a user enters something other than a number between 0-8
-                    System.out.println("Please select a number between 0-8");
+                    //In case a user enters something other than a number between 0-5
+                    System.out.println("Please select a number between 0-5");
                     break;
             }
         }

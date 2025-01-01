@@ -11,11 +11,11 @@ import java.util.regex.Pattern;
 public class InputParser {
     //Creates separate lists and sets for keeping track of the order of words and punctuation and new lines
 
-    List<String> wordList = new ArrayList<>();
-    List<String> otherList = new ArrayList<>();
-    Set<Integer> indexes = new HashSet<Integer>();
-    Set<Integer> lineSet = new HashSet<Integer>();
-    Set<Integer> capWordSet = new HashSet<Integer>();
+    private List<String> wordList = new ArrayList<>();
+    private List<String> otherList = new ArrayList<>();
+    private Set<Integer> indexes = new HashSet<Integer>();
+    private Set<Integer> lineSet = new HashSet<Integer>();
+    private Set<Integer> capWordSet = new HashSet<Integer>();
 
     //processFile should retrieve and organise the words and punctuation into separate Lists
     //Keep track of the indexes for punctuation in a Set so the order can be maintained

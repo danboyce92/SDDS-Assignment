@@ -9,7 +9,7 @@ public class Threads {
     private final List<Future<String>> futures = new ArrayList<>();
 
     //Swap is the same time complexity as SwapWord O(n)
-    public String swap(double[] word, List<String> googleWords, List<double[]> googleEmbeddings) {
+    private String swap(double[] word, List<String> googleWords, List<double[]> googleEmbeddings) {
         return ws.swapWord(word, googleWords , googleEmbeddings);
     }
 
