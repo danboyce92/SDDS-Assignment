@@ -1,3 +1,4 @@
+package ie.atu.sw;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,7 @@ public class Runner {
             switch (userInput) {
                 case 1:
                     //Allows user to specify embedding file path
+                    System.out.println(wordList.size());
                     System.out.println("Enter the path for the word embeddings file: ");
                     embeddingFilePath = s.nextLine();
                     //Populate Lists now that path has been set
@@ -75,7 +77,7 @@ public class Runner {
                 case 2:
                     //Allows user to specify output file path
                     System.out.print("Enter the path for the common words file: ");
-                    outputFilePath = s.nextLine();
+                    commonWordsPath = s.nextLine();
                     //Populate Lists and Maps now that commonWord File has been set
                     googleList = wlc.generateList(commonWordsPath);
                     totalHashMap = tmc.generateMap(wordList, embeddingList);

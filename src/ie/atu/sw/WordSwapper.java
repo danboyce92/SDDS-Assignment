@@ -1,7 +1,7 @@
+package ie.atu.sw;
 import java.util.List;
 
 public class WordSwapper {
-    
     /**
      * SwapWord uses a time complexity of O(n)
      * More specifically it's time complexity looks a bit more like this O(n * m)
@@ -14,7 +14,7 @@ public class WordSwapper {
      */
     public String swapWord(double[] wordToChange,List<String> googleWords, List<double[]> googleEmbeddings) {
         double[] closest = null;
-        double highest = -1;
+        double highest = -1.0;
         String replacement = null;
 
         for (double[] word : googleEmbeddings) {
@@ -48,5 +48,4 @@ public class WordSwapper {
         }
         return dotProduct / (Math.sqrt(normV1) * Math.sqrt(normV2));
     }
-
 }
