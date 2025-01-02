@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,7 +14,8 @@ public class TotalMapCreator implements MapGenerator<List<double[]>> {
      * @return map Map<String, double[]>
      * @throws IOException
      */
-    public Map<String, double[]> generateMap(List<String> words, List<double[]> embeddings) throws IOException {
+    @Override
+    public HashMap<String, double[]> generateMap(List<String> words, List<double[]> embeddings) throws IOException {
         for (int i = 0; i < words.size(); i++) {
             map.put(words.get(i), embeddings.get(i));
         }

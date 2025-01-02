@@ -1,9 +1,9 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.ArrayList;
 
 public class Runner {
     private Scanner s = new Scanner(System.in);
@@ -29,18 +29,18 @@ public class Runner {
         GoogleEmbeddingListCreator gelc = new GoogleEmbeddingListCreator();
 
         //Generate Lists
-        List<String> wordList = new ArrayList<>(wlc.generateList(embeddingFilePath));
-        List<double[]> embeddingList = new ArrayList<>(elc.generateList(embeddingFilePath)); 
-        List<String> googleList = new ArrayList<>(wlc.generateList(commonWordsPath));
+        List<String> wordList = new ArrayList<>();
+        List<double[]> embeddingList = new ArrayList<>(); 
+        List<String> googleList = new ArrayList<>();
 
-        //Instantiate Map Creators and generate them
+        //Instantiate Map Creators
         MapGenerator<List<double[]>> tmc = new TotalMapCreator();
-        HashMap<String, double[]> totalHashMap = new HashMap<>(tmc.generateMap(wordList, embeddingList));
+        HashMap<String, double[]> totalHashMap = new HashMap<>();
         MapGenerator<HashMap<String, double[]>> gmc = new GoogleMapCreator();
-        HashMap<String, double[]> googleHashMap = new HashMap<>(gmc.generateMap(googleList, totalHashMap));
+        HashMap<String, double[]> googleHashMap = new HashMap<>();
 
         //Get commonEmbeddings from HashMap
-        List<double[]> googleEmbeddings = new ArrayList<>(gelc.createEmbeddingList(totalHashMap, googleList));
+        List<double[]> googleEmbeddings = new ArrayList<>();
         
         isRunning = true;
         while(isRunning) {
@@ -67,12 +67,20 @@ public class Runner {
                     //Allows user to specify embedding file path
                     System.out.println("Enter the path for the word embeddings file: ");
                     embeddingFilePath = s.nextLine();
+                    //Populate Lists now that path has been set
+                    wordList = wlc.generateList(embeddingFilePath);
+                    embeddingList = elc.generateList(embeddingFilePath);
                     System.out.println("The path you have chosen is " + embeddingFilePath);
                     break;
                 case 2:
                     //Allows user to specify output file path
                     System.out.print("Enter the path for the common words file: ");
                     outputFilePath = s.nextLine();
+                    //Populate Lists and Maps now that commonWord File has been set
+                    googleList = wlc.generateList(commonWordsPath);
+                    totalHashMap = tmc.generateMap(wordList, embeddingList);
+                    googleHashMap = gmc.generateMap(googleList, totalHashMap);
+                    googleEmbeddings = gelc.createEmbeddingList(totalHashMap, googleList);
                     System.out.println("The path you have chosen is " + commonWordsPath);
                     break;
                 case 3:
