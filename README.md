@@ -1,14 +1,24 @@
 # SDDS-Assignment 
-
 *Daniel Boyce G-00438851*
 
 ## Description
 This project is a CLI program that analyzes and modifies text input by replacing less common words with more widely used and easier to understand alternatives. 
 
 ## How to use
+In order to use this program, after the files have been compiled and the Runner file is executed, you will see a user interface in the console. In order for this program to work properly make sure you set the first 4 parameters before running the program.
+1. Set the path to the embeddings file you have. <br/>
+2. Set the path to the google 1000 most common words list you have. <br/>
+3. Set the path to the text file you want changed. <br/>
+4. Set the path to where you want the results to be sent. <br/>
+If all parameters are set correctly you can run the program with 5.
+You should get a success message, close the program with 0 and look for your output file where you specified.
 
 
-## Features
+## UML visualisation
+![UML Diagram](./UML.PNG)
+
+
+
 
 
 ## Build Notes
