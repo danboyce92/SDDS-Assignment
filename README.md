@@ -21,7 +21,7 @@ You should get a success message, close the program with 0 and look for your out
 
 
 
-## Build Notes
+## Progress Notes & Questions
 The idea for this project. Similar to the last project in that it is a CLI program that takes an input and makes a modification, saves the output to a designated location.
 
 Where to begin?
